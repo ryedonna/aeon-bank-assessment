@@ -72,7 +72,7 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading transaction history...</p>
@@ -83,8 +83,8 @@ export default function DashboardPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+        <div className="text-center max-w-md mx-auto">
           <div className="text-red-600 text-xl mb-4">⚠️</div>
           <p className="text-red-600 mb-4">{error}</p>
           <button
@@ -99,16 +99,18 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4">
+    <div className="min-h-screen bg-gray-50 py-4 sm:py-8 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Transaction History</h1>
-          <p className="text-gray-600">View your recent transactions and payment history</p>
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Transaction History</h1>
+          <p className="text-gray-600 text-sm sm:text-base">
+            View your recent transactions and payment history
+          </p>
         </div>
 
-        {/* Table Container */}
-        <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+        {/* Desktop Table - Hidden on mobile */}
+        <div className="hidden md:block bg-white rounded-lg shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
@@ -167,6 +169,30 @@ export default function DashboardPage() {
           </div>
         </div>
 
+        {/* Mobile Card Layout - Hidden on desktop */}
+        <div className="md:hidden space-y-4">
+          {transactions.map((transaction) => (
+            <div
+              key={transaction.id}
+              className="bg-white rounded-lg shadow-sm p-4 border border-gray-200"
+            >
+              {/* Top row - Date and Amount */}
+              <div className="flex justify-between items-center mb-3">
+                <div className="text-sm font-medium text-gray-900">{transaction.date}</div>
+                <div className={`text-lg font-bold ${getAmountStyle(transaction.type)}`}>
+                  {getAmountPrefix(transaction.type)}
+                  {transaction.amount}
+                </div>
+              </div>
+
+              {/* Recipient Information */}
+              <div className="mb-3">
+                {formatRecipient(transaction.to)}
+              </div>
+            </div>
+          ))}
+        </div>
+
         {/* Summary */}
         <div className="mt-6 text-center text-sm text-gray-500">
           Showing {transactions.length} transactions
@@ -177,7 +203,7 @@ export default function DashboardPage() {
           <button
             onClick={fetchTransactions}
             disabled={loading}
-            className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+            className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white font-medium py-2 px-6 rounded-lg transition-colors w-full sm:w-auto"
           >
             {loading ? "Refreshing..." : "Refresh Data"}
           </button>
