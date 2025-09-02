@@ -1,36 +1,134 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Aeon Bank Assessment Project
+
+A Next.js application demonstrating a responsive navbar, multi-step login flow with password encryption, and a transaction history dashboard.
+
+## Features Implemented
+
+### Challenge 1: Responsive Navbar
+- Clean, modern navbar with AEON branding
+- Responsive design that collapses to a hamburger menu on mobile
+- Search input field (non-functional as requested)
+- Login button that navigates to the login page
+
+### Challenge 2: Multi-Step Login Flow
+- Username input step with validation
+- Secure word retrieval from mock API
+- Password input with encryption before submission
+- Success confirmation with auto-redirect
+- Password encryption using SHA-256 hashing
+
+### Challenge 3: Transaction History Dashboard
+- Data fetching from mock API endpoint
+- Clean, responsive table design
+- Transaction categorization (inflow/outflow) with color coding
+- Loading states and error handling
+
+## Technology Stack
+
+- **Framework**: Next.js 15.5.2 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Security**: Web Crypto API for password hashing
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── api/
+│   │   ├── getSecureWord/route.ts      # Returns static secure word
+│   │   ├── login/route.ts              # Accepts encrypted credentials
+│   │   └── transaction-history/route.ts # Mock transaction data
+│   ├── dashboard/
+│   │   └── page.tsx                    # Transaction table
+│   ├── login/
+│   │   └── page.tsx                    # Multi-step login form
+│   ├── layout.tsx                      # Root layout with navbar logic
+│   ├── page.tsx                        # Home page
+│   └── globals.css                     # Global styles
+├── components/
+│   ├── ClientWrapper.tsx               # Navbar visibility control
+│   └── Navbar.tsx                      # Responsive navbar component
+└── utils/
+    └── encryption.ts                   # Password hashing utilities
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+ installed on your machine
+- npm or yarn package manager
+
+### Installation
+
+1. Clone or download the project files
+2. Navigate to the project directory
+3. Install dependencies:
+
+```bash
+npm install
+```
+
+### Running the Application
+
+Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Building for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+```
 
-## Learn More
+### Starting Production Server
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Usage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Home Page**: Navigate to the root URL to see the responsive navbar and introduction
+2. **Login Flow**: Click the "Login" button to start the multi-step authentication process
+   - Step 1: Enter any username
+   - Step 2: View the secure word returned from the API
+   - Step 3: Enter any password (will be encrypted before submission)
+   - Step 4: See success message and auto-redirect to dashboard
+3. **Dashboard**: View transaction history table with mock data
 
-## Deploy on Vercel
+## API Endpoints
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `POST /api/getSecureWord` - Returns a static secure word for any username
+- `POST /api/login` - Accepts encrypted credentials and returns success
+- `GET /api/transaction-history` - Returns mock transaction data
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Security Notes
+
+- Passwords are hashed client-side using SHA-256 before being sent to the server
+- This is a demonstration system with mock APIs - not suitable for production
+- In a real application, you would add server-side validation, database storage, and proper session management
+
+## Assessment Requirements Checklist
+
+- ✅ Responsive navbar with collapsible mobile menu
+- ✅ Search input field (non-functional)
+- ✅ Login button navigation
+- ✅ Multi-step login form
+- ✅ Mock API endpoints
+- ✅ Password encryption before submission
+- ✅ Transaction history table with data fetching
+- ✅ Clean UI with proper styling
+
+## Demo Credentials
+
+This is a demonstration system, so any credentials will work:
+- Username: Any text value
+- Password: Any text value
+
+The system will always return a successful login for demonstration purposes.
