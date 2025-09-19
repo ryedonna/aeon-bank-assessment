@@ -1,6 +1,6 @@
 'use client'
 
-import { usePathname, useSearchParams } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Navbar from './Navbar'
 
@@ -10,7 +10,6 @@ export default function ClientWrapper({
   children: React.ReactNode
 }) {
   const pathname = usePathname()
-  const searchParams = useSearchParams()
   const [showNavbar, setShowNavbar] = useState(true)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
